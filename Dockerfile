@@ -13,7 +13,7 @@ FROM openjdk:17
 COPY build/libs/*.jar app.jar
 
 # 실행 명령어
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--server.address=0.0.0.0"]
 
 # 컨테이너의 기본 시간대를 'Asia/Seoul'로 설정
 RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
