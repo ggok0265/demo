@@ -14,3 +14,6 @@ COPY build/libs/*.jar app.jar
 
 # 실행 명령어
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# 컨테이너의 기본 시간대를 'Asia/Seoul'로 설정
+RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
