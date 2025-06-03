@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to EC2
+      - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ env.REMOTE_HOST }}
@@ -61,9 +61,15 @@ jobs:
           port: ${{ env.SSH_PORT }}
           script: |
             CONTAINER_ID=$(sudo docker ps -q --filter "publish=8080-8080")
+            IMAGE_ID=$(sudo docker images -q ${{ env.DOCKER_IMAGE_NAME }})
             if [ ! -z "$CONTAINER_ID" ]; then
               sudo docker stop $CONTAINER_ID
               sudo docker rm $CONTAINER_ID
             fi
+
+            if [ ! -z "$IMAGE_ID" ]; then
+              sudo docker rmi -f $IMAGE_ID
+            fi
+            
             sudo docker pull ${{ env.DOCKER_IMAGE_NAME }}
             sudo docker run --name ${{ env.CONTAINER_NAME }} -d -p 8080:8080 -e TZ=Asia/Seoul ${{ env.DOCKER_IMAGE_NAME }}
