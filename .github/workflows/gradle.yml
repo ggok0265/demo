@@ -9,6 +9,7 @@ env:
   DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
   REMOTE_HOST: ${{ secrets.REMOTE_IP }}
   REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+  REMOTE_PASSWORD: ${{ secrets.REMOTE_PASSWORD }}
   PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
   CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
   SSH_PORT: ${{ secrets.SSH_PORT }}
@@ -55,6 +56,7 @@ jobs:
         with:
           host: ${{ env.REMOTE_HOST }}
           username: ${{ env.REMOTE_USER }}
+          password: ${{ env.REMOTE_PASSWORD }}
           key: ${{ env.PRIVATE_KEY }}
           port: ${{ env.SSH_PORT }}
           script: |
